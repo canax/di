@@ -2,8 +2,8 @@
 
 namespace Anax\DI;
 
-use Anax\DI\Exception;
-use Anax\DI\NotFoundException;
+use Anax\DI\Exception\Exception;
+use Anax\DI\Exception\NotFoundException;
 
 /**
  * A DI used with Anax should implement this interface.

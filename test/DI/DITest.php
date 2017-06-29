@@ -2,6 +2,9 @@
 
 namespace Anax\DI;
 
+use Anax\DI\Exception\Exception;
+use Anax\DI\Exception\NotFoundException;
+
 /**
  * Testing the Dependency Injector service container.
  */
