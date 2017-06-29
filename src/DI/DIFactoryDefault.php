@@ -6,9 +6,9 @@ namespace Anax\DI;
  * Anax base class implementing Dependency Injection / Service Locator
  * of the services used by the framework, using lazy loading.
  */
-class CDIFactoryDefault extends CDI
+class DIFactoryDefault extends DI
 {
-    use \Anax\TLoadFile;
+    //use \Anax\TLoadFile;
 
 
 
@@ -18,9 +18,9 @@ class CDIFactoryDefault extends CDI
      */
     public function __construct()
     {
-        parent::__construct();
+        //parent::__construct();
 
-        $this->loadFile("error_reporting.php");
+        //$this->loadFile("error_reporting.php");
 
         $this->setShared("response", "\Anax\Response\CResponseBasic");
         $this->setShared("validate", "\Anax\Validate\CValidate");

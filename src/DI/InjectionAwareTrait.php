@@ -6,7 +6,7 @@ namespace Anax\DI;
  * Trait to use for DI aware services to let them know of the current $di
  *
  */
-trait TInjectionAware
+trait InjectionAwareTrait
 {
 
     /**
