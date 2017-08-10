@@ -2,6 +2,9 @@
 
 namespace Anax\DI;
 
+use Anax\DI\Exception\NotFoundException;
+use Anax\DI\Exception\Exception;
+
 /**
  * Anax base class implementing Dependency Injection / Service Locator of
  * the services used by the framework, using lazy loading.
@@ -9,16 +12,20 @@ namespace Anax\DI;
 class DI implements DIInterface
 {
     /**
-     * Properties
-     *
+     * @var array $loaded  Store all lazy loaded services, ready to be
+     *                     instantiated.
+     * @var array $active  A service is instantiated into this array,
+     *                     once its accessed.
      */
-    public $loaded = [];  // Store all lazy loaded services, ready to be instantiated
-    public $active = [];  // A service is instantiated into this array, once its accessed
+    public $loaded = [];
+    public $active = [];
 
 
 
     /**
-     * Finds an entry of the container by its identifier and returns it.
+     * Finds an entry in the container by its identifier and returns it.
+     * If the service is active/singelton then that instance is returned,
+     * else the service is loaded and a new instance is returned.
      *
      * @param string $service     Identifier of the entry to look for.
      *
@@ -29,25 +36,64 @@ class DI implements DIInterface
      */
     public function get($service)
     {
-        // Is the service active?
-        if (isset($this->active[$service])) {
-            if ($this->loaded[$service]['singleton']) {
-                return $this->active[$service];
-            } else {
-                return $this->load($service);
-            }
-        } elseif (isset($this->loaded[$service])) {
-            // Is the service loaded?
-            return $this->load($service);
+        if (!$this->has($service)) {
+            throw new NotFoundException("The service '$service' is not loaded in the DI-container.");
         }
 
-        $message  = "DI the service accessed '$service' is not loaded in the DI-container.";
-        $services = $this->getServices();
-        natcasesort($services);
-        $services = implode("\n", $services);
-        $message .= " Loaded services are: <pre>$services</pre>";
-        
-        throw new NotFoundException($message);
+        if (isset($this->active[$service])
+            && $this->loaded[$service]['singleton']) {
+            return $this->active[$service];
+        }
+
+        return $this->load($service);
+    }
+
+
+
+    /**
+     * Load a prepared service object and create an instance of it.
+     *
+     * @param string $service as a service label, naming this service.
+     *
+     * @throws Exception when service could not be loaded.
+     *
+     * @return object as instance of the service object.
+     */
+    protected function load($service)
+    {
+        $sol = isset($this->loaded[$service]['loader'])
+            ? $this->loaded[$service]['loader']
+            : null;
+
+        if (is_callable($sol)) {
+            // Load by calling a function
+            try {
+                $this->active[$service] = $sol();
+            } catch (\Exception $e) {
+                throw new Exception(
+                    "Could not load service '$service'."
+                    . "Failed in the callback that instantiates the service. "
+                    . $e->getMessage()
+                );
+            }
+        } elseif (is_object($sol)) {
+            // Load by pre-instantiated object
+            $this->active[$service] = $sol;
+        } elseif (is_string($sol)) {
+            // Load by creating a new object from class-string
+            if (!class_exists($sol)) {
+                throw new Exception(
+                    "Could not load service '$service'."
+                    . "Class '$sol' does not exists."
+                );
+            }
+            $this->active[$service] = new $sol();
+        } else {
+            throw new Exception("The service '$service' has no init mechanism.");
+        }
+
+        $this->$service = $this->active[$service];
+        return $this->active[$service];
     }
 
 
@@ -70,20 +116,43 @@ class DI implements DIInterface
 
 
     /**
-     * Set a service and connect it to a task which creates the object (lazy loading).
+     * Set a service and connect it to a task which creates the object
+     * (lazy loading).
      *
      * @param string  $service   as a service label, naming this service.
-     * @param mixed   $loader    contains a pre-defined object, a string with classname or an
-     *      callable which returns an instance of the service object. Its the way to
-     *      actually load, insantiate, the serviceobject.
-     * @param boolean $singleton set if service is to act as singleton or not, default is false.
+     * @param mixed   $loader    contains a pre-defined object, a string with
+     *                           class name or an callable which returns an
+     *                           instance of the service object. Its the way
+     *                           to actually load, insantiate, the service
+     *                           object.
      *
-     * @return nothing.
+     * @return void
      */
-    public function set($service, $loader, $singleton = false)
+    public function set($service, $loader)
     {
         $this->loaded[$service]['loader'] = $loader;
-        $this->loaded[$service]['singleton'] = $singleton;
+        $this->loaded[$service]['singleton'] = false;
+    }
+
+
+
+    /**
+     * Set a singleton service and connect it to a task which creates the
+     * object (lazy loading).
+     *
+     * @param string $service as a service label, naming this service.
+     * @param mixed   $loader    contains a pre-defined object, a string with
+     *                           class name or an callable which returns an
+     *                           instance of the service object. Its the way
+     *                           to actually load, insantiate, the service
+     *                           object.
+     *
+     * @return void
+     */
+    public function setShared($service, $loader)
+    {
+        $this->loaded[$service]['loader'] = $loader;
+        $this->loaded[$service]['singleton'] = true;
     }
 
 
@@ -101,23 +170,6 @@ class DI implements DIInterface
 
 
     /**
-     * Return an array with all loaded services that are controllers.
-     *
-     * @return void
-     */
-    public function getControllers()
-    {
-        return array_filter(
-            array_keys($this->loaded),
-            function ($val) {
-                return strpos($val, "Controller") !== false;
-            }
-        );
-    }
-
-
-
-    /**
      * Return an arry with all active services names.
      *
      * @return void
@@ -130,21 +182,21 @@ class DI implements DIInterface
 
 
     /**
-     * Set a singleton service and connect it to a task which creates the object (lazy loading).
+     * Return an array with all loaded services that are controllers.
      *
-     * @param string $service as a service label, naming this service.
-     * @param mixed  $loader  contains a pre-defined object, a string with
-     *                        classname or an callable which returns an
-     *                        instance of the service object. Its the way
-     *                        to actually load, insantiate, the serviceobject.
-     *
-     * @return nothing.
+     * @return void
      */
-    public function setShared($service, $loader)
+/*
+    public function getControllers()
     {
-        $this->set($service, $loader, true);
+        return array_filter(
+            array_keys($this->loaded),
+            function ($val) {
+                return strpos($val, "Controller") !== false;
+            }
+        );
     }
-
+*/
 
 
     /**
@@ -155,11 +207,12 @@ class DI implements DIInterface
      *
      * @return class as the service requested.
      */
+/*    
     public function __get($service)
     {
         return $this->get($service);
     }
-
+*/
 
 
     /**
@@ -171,49 +224,10 @@ class DI implements DIInterface
      *
      * @return class as the service requested.
      */
+/*
     public function __call($service, $arguments = [])
     {
         return $this->get($service);
     }
-
-
-
-    /**
-     * Lazy load a service object and create an instance of it.
-     *
-     * @param string $service as a service label, naming this service.
-     *
-     * @return object as instance of the service object.
-     * @throws Exception when service could not be loaded.
-     */
-    protected function load($service)
-    {
-        $sol = isset($this->loaded[$service]['loader'])
-            ? $this->loaded[$service]['loader']
-            : null;
-
-        // Load by calling a function
-        if (is_callable($sol)) {
-            try {
-                $this->active[$service] = $sol();
-            } catch (\Exception $e) {
-                throw new \Exception(
-                    "CDI could not load service '$service'."
-                    . "Failed in the callback that instantiates the service. "
-                    . $e->getMessage()
-                );
-            }
-        } elseif (is_object($sol)) {
-            // Load by pre-instantiated object
-            $this->active[$service] = $sol;
-        } elseif (is_string($sol)) {
-            // Load by creating a new object from class-string
-            $this->active[$service] = new $sol();
-        } else {
-            throw new Exception("CDI could not load service '$service'. It is unknown how to load it.");
-        }
-
-        $this->$service = $this->active[$service];
-        return $this->active[$service];
-    }
+*/
 }

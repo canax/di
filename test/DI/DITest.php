@@ -2,47 +2,57 @@
 
 namespace Anax\DI;
 
-use Anax\DI\Exception\Exception;
-use Anax\DI\Exception\NotFoundException;
-
 /**
  * Testing the Dependency Injector service container.
  */
 class DITest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test
-     *
-     * @expectedException \Exception
+     * Create a service instantiating using a callback.
      */
-    public function testLoadFailesInServiceCreation()
+    public function testSetUsingCallback()
     {
         $di = new DI();
-        $service = 'failsWithException';
+        $service = 'someService';
 
         $di->set($service, function () {
-            throw new Exception("Failed creating service.");
+            return new \stdClass();
         });
 
-        $di->get($service);
+        $someService = $di->get($service);
+        $this->assertInstanceOf('\stdClass', $someService);
     }
 
 
 
     /**
-     * Test
+     * Create a service instantiating using a string.
      */
-    public function testOverwritePreviousDefinedService()
+    public function testSetUsingString()
     {
-        $di = new DIFactoryDefault();
-        $service = 'session';
+        $di = new DI();
+        $service = 'someService';
 
-        $di->set($service, function () {
-            $session = new \stdClass();
-            return $session;
-        });
+        $di->set($service, "\stdClass");
 
-        $session = $di->get($service);
-        $this->assertInstanceOf('\stdClass', $session);
+        $someService = $di->get($service);
+        $this->assertInstanceOf('\stdClass', $someService);
+    }
+
+
+
+    /**
+     * Create a service instantiating using a prepared object.
+     */
+    public function testSetUsingObject()
+    {
+        $di = new DI();
+        $service = 'someService';
+        $object = new \stdClass();
+
+        $di->set($service, $object);
+
+        $someService = $di->get($service);
+        $this->assertInstanceOf('\stdClass', $someService);
     }
 }

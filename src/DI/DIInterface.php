@@ -6,7 +6,7 @@ use Anax\DI\Exception\Exception;
 use Anax\DI\Exception\NotFoundException;
 
 /**
- * A DI used with Anax should implement this interface.
+ * A DI class used with Anax should implement this interface.
  *
  */
 interface DIInterface

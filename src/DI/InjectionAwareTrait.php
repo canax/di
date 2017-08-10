@@ -3,16 +3,17 @@
 namespace Anax\DI;
 
 /**
- * Trait to use for DI aware services to let them know of the current $di
+ * Trait to use for DI aware services to let them know of the current $di.
  *
  */
 trait InjectionAwareTrait
 {
-
     /**
-     * Properties
+     * @var $di the DI/service container.
      */
-    protected $di; // the service container
+    protected $di;
+
+
 
     /**
      * Set the service container to use

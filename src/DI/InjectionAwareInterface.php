@@ -3,7 +3,8 @@
 namespace Anax\DI;
 
 /**
- * Interface to implement for DI aware services to let them know of the current $di
+ * Interface to implement for DI aware services to let them know of the
+ * current $di
  */
 interface InjectionAwareInterface
 {

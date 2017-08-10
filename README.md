@@ -26,6 +26,24 @@ $ composer require anax/di
 Usage
 ------------------
 
+This is how you can work with the DI container.
+
+
+
+###Create and use the container
+
+```php
+$di = new \Anax\DI\DI();
+
+
+```
+
+
+
+###Add a service using a callback
+###Add a service using an object
+###Add a service using a class name
+
 
 
 
