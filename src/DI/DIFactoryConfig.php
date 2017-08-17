@@ -7,16 +7,16 @@ use \Anax\Configure\ConfigureTrait;
 
 /**
  * DI factory class creating a set of default services by loading
- * * them from a configuration file.
+ * them from a configuration file.
  */
-class DIFactoryConfig extends DI implements ConfigureInterface
+class DIFactoryConfig extends DI implements ConfigureInterface, DIInterface
 {
     use ConfigureTrait;
 
 
 
    /**
-     * Constructor creating a set of services included into this DI container.
+     * Constructor creating a set of services from a configuration file.
      */
     public function __construct($configFile)
     {
@@ -26,6 +26,10 @@ class DIFactoryConfig extends DI implements ConfigureInterface
                 $this->setShared($name, $service["callback"]);
             } else {
                 $this->set($name, $service["callback"]);
+            }
+
+            if (isset($service["active"]) && $service["active"]) {
+                $this->get($name);
             }
         }
     }
