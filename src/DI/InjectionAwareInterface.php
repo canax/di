@@ -2,6 +2,8 @@
 
 namespace Anax\DI;
 
+use Anax\DI\DIInterface;
+
 /**
  * Interface to implement for DI aware services to let them know of the
  * current $di
@@ -11,9 +13,9 @@ interface InjectionAwareInterface
     /**
      * Set the service container to use
      *
-     * @param class $di a service container
+     * @param Anax\DI\DIInterface $di a service container
      *
      * @return $this
      */
-    public function setDI($di);
+    public function setDI(DIInterface $di);
 }

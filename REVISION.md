@@ -1,6 +1,11 @@
 Revision history
 =================================
 
+v1.0.3 (2017-08-17)
+---------------------------------
+
+* Require specific DIInterface.
+* Allow to activate service directly by configuration file setting.
 
 
 v1.0.2 (2017-08-10)

@@ -9,7 +9,7 @@ namespace Anax\DI;
 trait InjectionAwareTrait
 {
     /**
-     * @var $di the DI/service container.
+     * @var Anax\DI\DIInterface $di the DI service container.
      */
     protected $di;
 
@@ -18,11 +18,11 @@ trait InjectionAwareTrait
     /**
      * Set the service container to use
      *
-     * @param class $di a service container
+     * @param Anax\DI\DIInterface $di a service container
      *
      * @return $this
      */
-    public function setDI($di)
+    public function setDI(DIInterface $di)
     {
         $this->di = $di;
     }
