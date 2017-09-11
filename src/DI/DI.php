@@ -17,8 +17,8 @@ class DI implements DIInterface
      * @var array $active  A service is instantiated into this array,
      *                     once its accessed.
      */
-    public $loaded = [];
-    public $active = [];
+    protected $loaded = [];
+    protected $active = [];
 
 
 
