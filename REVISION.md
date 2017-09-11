@@ -1,7 +1,7 @@
 Revision history
 =================================
 
-v1.0.4* (2017-09-11)
+v1.0.4 (2017-09-11)
 ---------------------------------
 
 * Made DI instance variables protected instead of public.
