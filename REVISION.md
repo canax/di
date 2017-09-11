@@ -6,6 +6,8 @@ v1.0.4* (2017-09-11)
 
 * Made DI instance variables protected instead of public.
 * Remove commented section with magic methods from DI.
+* Adding DIFactoryConfigMagic that uses DIMagicTrait.
+* Adding testcases for DIFactoryConfigMagic.
 
 
 v1.0.3 (2017-08-17)

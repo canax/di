@@ -108,9 +108,7 @@ class DI implements DIInterface
      */
     public function has($service)
     {
-        return isset($this->loaded[$service])
-            ? true
-            : false;
+        return isset($this->loaded[$service]);
     }
 
 
