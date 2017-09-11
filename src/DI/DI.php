@@ -178,23 +178,4 @@ class DI implements DIInterface
     {
         return array_keys($this->active);
     }
-
-
-
-    /**
-     * Return an array with all loaded services that are controllers.
-     *
-     * @return void
-     */
-/*
-    public function getControllers()
-    {
-        return array_filter(
-            array_keys($this->loaded),
-            function ($val) {
-                return strpos($val, "Controller") !== false;
-            }
-        );
-    }
-*/
 }
