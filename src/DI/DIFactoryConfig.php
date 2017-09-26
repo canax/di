@@ -51,18 +51,16 @@ class DIFactoryConfig extends DI implements ConfigureInterface
     {
         $this->configure2($what);
 
-        if (isset($this->config["services"])) {
-            foreach ($this->config["services"] as $name => $service) {
-                $this->createService($name, $service);
-            }
+        $services = $this->getConfig("services", []);
+        foreach ($services as $name => $service) {
+            $this->createService($name, $service);
         }
 
-        if (isset($this->config["items"])) {
-            foreach ($this->config["items"] as $config) {
-                if (isset($config["services"])) {
-                    foreach ($config["services"] as $name => $service) {
-                        $this->createService($name, $service);
-                    }
+        $items = $this->getConfig("items", []);
+        foreach ($items as $config) {
+            if (isset($config["services"])) {
+                foreach ($config["services"] as $name => $service) {
+                    $this->createService($name, $service);
                 }
             }
         }
