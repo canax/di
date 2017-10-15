@@ -5,7 +5,7 @@ namespace Anax\DI;
 /**
  * DI factory class creating a set of default services into the DI container.
  */
-class DIFactoryDefault extends DI
+class DIFactoryTest extends DIFactoryConfig
 {
     use DIServiceSetBaseTrait;
 

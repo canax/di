@@ -1,6 +1,13 @@
 Revision history
 =================================
 
+
+v1.0.9 (2017-10-15)
+---------------------------------
+
+* Add DIServiceSetBaseTrait and DIFactoryTest to ease unit testing of modules using di.
+
+
 v1.0.8 (2017-09-26)
 ---------------------------------
 
