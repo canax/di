@@ -2,12 +2,12 @@
 
 namespace Anax\DI;
 
-use \PHPUnit_Framework_TestCase;
+use \PHPUnit\Framework\TestCase;
 
 /**
  * Testcases.
  */
-class DocumentationReadmeTest extends PHPUnit_Framework_TestCase
+class DocumentationReadmeTest extends TestCase
 {
     /**
      * Test Add some routes with handlers

@@ -2,13 +2,14 @@
 
 namespace Anax\DI;
 
+use \PHPUnit\Framework\TestCase;
 use Anax\DI\Exception\Exception;
 use Anax\DI\Exception\NotFoundException;
 
 /**
  * Testing the Dependency Injector service container.
  */
-class DITestFailures extends \PHPUnit_Framework_TestCase
+class DITestFailures extends TestCase
 {
     /**
      * A user can not throw a custom exception in the callback initiating

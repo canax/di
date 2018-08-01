@@ -2,10 +2,12 @@
 
 namespace Anax\DI;
 
+use \PHPUnit\Framework\TestCase;
+
 /**
  * Testing the Dependency Injector service container.
  */
-class DIFactoryDefaultTest extends \PHPUnit_Framework_TestCase
+class DIFactoryDefaultTest extends TestCase
 {
     /**
      * Check the default services created.
