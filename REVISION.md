@@ -2,6 +2,16 @@ Revision history
 =================================
 
 
+v2.0.0-alpha.3 (2018-08-06)
+---------------------------------
+
+* Use Psr/Container, psr11.
+* @deprecated DI/Exception/DIExceptionInterface, replaced by psr11. 
+* @deprecated DI/Exception/NotFoundExceptionInterface, replaced by psr11.
+* @deprecated DI/DIInterface, replaced by psr11.
+
+
+
 v2.0.0-alpha.2 (2018-08-01)
 ---------------------------------
 

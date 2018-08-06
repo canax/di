@@ -2,14 +2,15 @@
 
 namespace Anax\DI;
 
-use \Anax\Configure\ConfigureInterface;
-use \Anax\Configure\Configure2Trait;
+use Anax\Configure\ConfigureInterface;
+use Anax\Configure\Configure2Trait;
+use Psr\Container\ContainerInterface;
 
 /**
  * DI factory class creating a set of default services by loading
  * them from a configuration file.
  */
-class DIFactoryConfig extends DI implements ConfigureInterface
+class DIFactoryConfig extends DI implements ContainerInterface
 {
     use Configure2Trait {
         configure as protected configure2;

@@ -2,9 +2,10 @@
 
 namespace Anax\DI\Exception;
 
+use Psr\Container\NotFoundExceptionInterface;
+
 /**
- * General exception for DI.
- *
+ * Exception when service is not found in DI.
  */
 class NotFoundException extends \Exception implements NotFoundExceptionInterface
 {

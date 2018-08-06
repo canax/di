@@ -4,24 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb91482d2dd86133b377b6914a28b551",
+    "content-hash": "73112eaf3daba385c0e2854b1b013259",
     "packages": [
         {
             "name": "anax/configure",
-            "version": "v2.0.0-alpha.1",
+            "version": "v2.0.0-alpha.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/canax/configure.git",
-                "reference": "0b2272d81a23819e5d4e2a598de5b743333c743a"
+                "reference": "9516ca602ca8d32ce6a7fab7a889088d62d13425"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/canax/configure/zipball/0b2272d81a23819e5d4e2a598de5b743333c743a",
-                "reference": "0b2272d81a23819e5d4e2a598de5b743333c743a",
+                "url": "https://api.github.com/repos/canax/configure/zipball/9516ca602ca8d32ce6a7fab7a889088d62d13425",
+                "reference": "9516ca602ca8d32ce6a7fab7a889088d62d13425",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2"
+            },
+            "require-dev": {
+                "anax/commons": "^2.0.0@alpha"
             },
             "type": "library",
             "autoload": {
@@ -36,9 +39,7 @@
             "authors": [
                 {
                     "name": "Mikael Roos",
-                    "email": "mos@dbwebb.se",
-                    "homepage": "https://dbwebb.se",
-                    "role": "Developer"
+                    "email": "mos@dbwebb.se"
                 }
             ],
             "description": "Anax Configure module for reading config files.",
@@ -47,10 +48,58 @@
                 "boilerplate",
                 "education",
                 "framework",
-                "micro",
                 "mvc"
             ],
-            "time": "2018-08-01T14:18:36+00:00"
+            "time": "2018-08-02T16:15:32+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "time": "2017-02-14T16:28:37+00:00"
         }
     ],
     "packages-dev": [],

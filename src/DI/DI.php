@@ -4,12 +4,13 @@ namespace Anax\DI;
 
 use Anax\DI\Exception\NotFoundException;
 use Anax\DI\Exception\Exception;
+use Psr\Container\ContainerInterface;
 
 /**
- * Anax base class implementing Dependency Injection / Service Locator of
- * the services used by the framework, using lazy loading.
+ * A dependency/service container implementing the interface FIG PSR-11.
+ * It can contain any of the fraework services, using lazy loading.
  */
-class DI implements DIInterface
+class DI implements ContainerInterface
 {
     /**
      * @var array $loaded  Store all lazy loaded services, ready to be
