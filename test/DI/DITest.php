@@ -57,4 +57,47 @@ class DITest extends TestCase
         $someService = $di->get($service);
         $this->assertInstanceOf('\stdClass', $someService);
     }
+
+
+
+    /**
+     * Use set to overwrite a service that was previously created.
+     */
+    public function testOverwritePreviousDefinedService()
+    {
+        $di = new DI();
+        $service = 'session';
+    
+        $di->set($service, function () {
+            $session = new \stdClass();
+            return $session;
+        });
+    
+        $session = $di->get($service);
+        $this->assertInstanceOf('\stdClass', $session);
+    }
+    
+    
+    
+    /**
+     * Add and access a dummy service.
+     */
+    public function testDummyService()
+    {
+        $di = new DI();
+    
+        $di->set("dummy", function () {
+            $obj = new DummyService();
+            return $obj;
+        });
+    
+        $obj = $di->get("dummy");
+        $this->assertInstanceOf('\Anax\DI\DummyService', $obj);
+    
+        $res = $di->get("dummy")->property;
+        $this->assertEquals("property", $res);
+    
+        $res = $di->get("dummy")->method();
+        $this->assertEquals("method", $res);
+    }
 }

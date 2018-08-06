@@ -47,14 +47,21 @@ $di = new \Anax\DI\DI();
 
 
 
+Dependency
+------------------
+
+Using psr11.
+
+
+
 License
 ------------------
 
-This software carries a MIT license.
+This software carries a MIT license. See [LICENSE.txt](LICENSE.txt) for details.
 
 
 
 ```
  .  
-..:  Copyright (c) 2013 - 2017 Mikael Roos, mos@dbwebb.se
+..:  Copyright (c) 2013 - 2018 Mikael Roos, mos@dbwebb.se
 ```

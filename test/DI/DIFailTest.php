@@ -9,7 +9,7 @@ use Anax\DI\Exception\NotFoundException;
 /**
  * Testing the Dependency Injector service container.
  */
-class DITestFailures extends TestCase
+class DIFailTest extends TestCase
 {
     /**
      * A user can not throw a custom exception in the callback initiating

@@ -2,6 +2,18 @@ Revision history
 =================================
 
 
+
+v2.0.0-alpha.4 (2018-08-06)
+---------------------------------
+
+* @deprecated DI/DIFactoryConfigMagic.
+* @deprecated DI/DIFactoryDefault.
+* @deprecated DI/InjectionAwareInterface.
+* @deprecated DI/InjectionAwareTrait.
+* @deprecated DI/InjectionMagicTrait.
+
+
+
 v2.0.0-alpha.3 (2018-08-06)
 ---------------------------------
 

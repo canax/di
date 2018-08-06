@@ -10,68 +10,81 @@ use \PHPUnit\Framework\TestCase;
 class DIFactoryConfigTest extends TestCase
 {
     /**
-     * Check the default services created.
+     * Load services from an array.
      */
-    public function testDefaultServices()
+    public function testLoadServicesFromArray()
     {
-        $di = new DIFactoryConfig("di.php");
+        $di = new DIFactoryConfig();
+
+        $self = $di->loadServices([
+            "services" => [
+                "request" => [
+                    "shared" => false,
+                    "callback" => function () {
+                        $object = new \stdClass();
+                        return $object;
+                    }
+                ],
+            ],
+        ]);
+        
+        $this->assertInstanceOf(DiFactoryConfig::class, $self);
+        
         $services = $di->getServices();
         $defaultServices = [
             "request",
-            "response",
-            "url",
-            "router",
-            "view",
-            "viewRenderFile",
-            "session",
-            "textfilter",
         ];
-
-        foreach ($services as $service) {
-            $this->assertContains($service, $defaultServices);
+        
+        foreach ($defaultServices as $service) {
+            $this->assertContains($service, $services);
         }
     }
 
 
 
     /**
-     * Use set to overwrite a service that was previously created.
+     * Load services from a configuration file.
      */
-    public function testOverwritePreviousDefinedService()
+    public function testLoadServicesFromFile()
     {
-        $di = new DIFactoryConfig("di.php");
-        $service = 'session';
+        $di = new DIFactoryConfig();
+        $self = $di->loadServices(ANAX_INSTALL_PATH . "/test/config/di.php");
 
-        $di->set($service, function () {
-            $session = new \stdClass();
-            return $session;
-        });
+        $this->assertInstanceOf(DiFactoryConfig::class, $self);
 
-        $session = $di->get($service);
-        $this->assertInstanceOf('\stdClass', $session);
+        $services = $di->getServices();
+        $defaultServices = [
+            "request",
+            "response",
+        ];
+
+        foreach ($defaultServices as $service) {
+            $this->assertContains($service, $services);
+        }
     }
 
 
 
     /**
-     * Add and access a dummy service.
+     * Load services from a configuration file/dir.
      */
-    public function testDummyService()
+    public function testLoadServicesFromFileDir()
     {
-        $di = new DIFactoryConfigMagic("di.php");
+        $di = new DIFactoryConfig();
+        $self = $di->loadServices(ANAX_INSTALL_PATH . "/test/config/di");
 
-        $di->set("dummy", function () {
-            $obj = new DummyService();
-            return $obj;
-        });
+        $this->assertInstanceOf(DiFactoryConfig::class, $self);
 
-        $obj = $di->get("dummy");
-        $this->assertInstanceOf('\Anax\DI\DummyService', $obj);
+        $services = $di->getServices();
+        $defaultServices = [
+            "request",
+            "response",
+            "session",
+            "url"
+        ];
 
-        $res = $di->get("dummy")->property;
-        $this->assertEquals("property", $res);
-
-        $res = $di->get("dummy")->method();
-        $this->assertEquals("method", $res);
+        foreach ($defaultServices as $service) {
+            $this->assertContains($service, $services);
+        }
     }
 }
