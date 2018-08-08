@@ -19,6 +19,7 @@ class DIFactoryConfigTest extends TestCase
         $self = $di->loadServices([
             "services" => [
                 "request" => [
+                    "active" => true,
                     "shared" => false,
                     "callback" => function () {
                         $object = new \stdClass();
@@ -27,14 +28,14 @@ class DIFactoryConfigTest extends TestCase
                 ],
             ],
         ]);
-        
+
         $this->assertInstanceOf(DiFactoryConfig::class, $self);
-        
+
         $services = $di->getServices();
         $defaultServices = [
             "request",
         ];
-        
+
         foreach ($defaultServices as $service) {
             $this->assertContains($service, $services);
         }

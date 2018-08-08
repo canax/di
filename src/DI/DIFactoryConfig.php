@@ -83,8 +83,7 @@ class DIFactoryConfig extends DI implements ContainerInterface
     protected function createServicesFromArray(
         array $services,
         string $path
-    ) : void
-    {
+    ) : void {
         if (!isset($services["services"])) {
             throw new Exception("The configuration array is missing the key 'services' in file '$path'.");
         }
@@ -108,7 +107,7 @@ class DIFactoryConfig extends DI implements ContainerInterface
      * @param array  $service details to use when creating the service.
      *
      * @throws Exception when configuration is corrupt.
-     * 
+     *
      * @return void
      */
     protected function createService(string $name, array $service) : void

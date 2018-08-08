@@ -2,7 +2,7 @@
 
 namespace Anax\DI;
 
-use \PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Testcases.
@@ -15,19 +15,19 @@ class DocumentationReadmeTest extends TestCase
     public function testAddSomeRoutesWIthHandles()
     {
         // $router = new RouterInjectable();
-        // 
+        //
         // $router->add("", function () {
         //     echo "home ";
         // });
-        // 
+        //
         // $router->add("about", function () {
         //     echo "about ";
         // });
-        // 
+        //
         // $router->add("about/me", function () {
         //     echo "about/me ";
         // });
-        // 
+        //
         // ob_start();
         // // try it out
         // $router->handle("");

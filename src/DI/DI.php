@@ -2,8 +2,8 @@
 
 namespace Anax\DI;
 
-use Anax\DI\Exception\NotFoundException;
 use Anax\DI\Exception\Exception;
+use Anax\DI\Exception\NotFoundException;
 use Psr\Container\ContainerInterface;
 
 /**

@@ -28,6 +28,27 @@ class DITest extends TestCase
 
 
     /**
+     * Get a loaded shared service.
+     */
+    public function testGetLoadedSharedService()
+    {
+        $di = new DI();
+        $service = 'someService';
+
+        $di->setShared($service, function () {
+            return new \stdClass();
+        });
+
+        $someService = $di->get($service);
+        $this->assertInstanceOf('\stdClass', $someService);
+
+        $someService = $di->get($service);
+        $this->assertInstanceOf('\stdClass', $someService);
+    }
+
+
+
+    /**
      * Create a service instantiating using a string.
      */
     public function testSetUsingString()
@@ -99,5 +120,31 @@ class DITest extends TestCase
     
         $res = $di->get("dummy")->method();
         $this->assertEquals("method", $res);
+    }
+
+
+
+    /**
+     * Get active services.
+     */
+    public function testGetActiveServices()
+    {
+        $di = new DI();
+    
+        $di->set("service1", function () {
+            return new \stdClass();
+        });
+    
+        $di->set("service2", function () {
+            return new \stdClass();
+        });
+    
+        
+        $obj = $di->get("service1");
+        $this->assertInstanceOf('\stdClass', $obj);
+    
+        $res = $di->getActiveServices();
+        $this->assertContains("service1", $res);
+        $this->assertNotContains("service2", $res);
     }
 }
