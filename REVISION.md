@@ -3,6 +3,13 @@ Revision history
 
 
 
+v2.0.0-alpha.7 (2018-08-08)
+---------------------------------
+
+* Removed some service configuration files, moved to their modules.
+
+
+
 v2.0.0-alpha.6 (2018-08-08)
 ---------------------------------
 
