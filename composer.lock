@@ -4,54 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "73112eaf3daba385c0e2854b1b013259",
+    "content-hash": "a35dbb5a085ec821b00c68f893a1ba25",
     "packages": [
-        {
-            "name": "anax/configure",
-            "version": "v2.0.0-alpha.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/canax/configure.git",
-                "reference": "9516ca602ca8d32ce6a7fab7a889088d62d13425"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/canax/configure/zipball/9516ca602ca8d32ce6a7fab7a889088d62d13425",
-                "reference": "9516ca602ca8d32ce6a7fab7a889088d62d13425",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "anax/commons": "^2.0.0@alpha"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Anax\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mikael Roos",
-                    "email": "mos@dbwebb.se"
-                }
-            ],
-            "description": "Anax Configure module for reading config files.",
-            "homepage": "https://dbwebb.se/anax",
-            "keywords": [
-                "boilerplate",
-                "education",
-                "framework",
-                "mvc"
-            ],
-            "time": "2018-08-02T16:15:32+00:00"
-        },
         {
             "name": "psr/container",
             "version": "1.0.0",
@@ -105,9 +59,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "anax/configure": 15
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -3,6 +3,13 @@ Revision history
 
 
 
+v2.0.0-alpha.6 (2018-08-08)
+---------------------------------
+
+* Remove dependency to anax/configure.
+
+
+
 v2.0.0-alpha.5 (2018-08-08)
 ---------------------------------
 
