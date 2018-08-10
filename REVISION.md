@@ -3,6 +3,14 @@ Revision history
 
 
 
+v2.0.0-alpha.9 (2018-08-10)
+---------------------------------
+
+* Fix build on travis/circleci.
+* Remove composer.lock.
+
+
+
 v2.0.0-alpha.8 (2018-08-10)
 ---------------------------------
 
