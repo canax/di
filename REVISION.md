@@ -3,6 +3,14 @@ Revision history
 
 
 
+v2.0.0-alpha.8 (2018-08-10)
+---------------------------------
+
+* Removed config, moved to their modules.
+* Add phpunit through composer.
+
+
+
 v2.0.0-alpha.7 (2018-08-08)
 ---------------------------------
 
