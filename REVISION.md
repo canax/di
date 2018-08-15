@@ -3,6 +3,14 @@ Revision history
 
 
 
+v2.0.0-beta.1 (2018-08-15)
+---------------------------------
+
+* Update Makefile.
+* Update description in composer.json.
+
+
+
 v2.0.0-alpha.9 (2018-08-10)
 ---------------------------------
 
