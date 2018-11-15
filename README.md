@@ -15,15 +15,32 @@ Anax DI
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c4802edf7cf5495e9be8dfbd5c116cb1)](https://www.codacy.com/app/mosbth/di?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=canax/di&amp;utm_campaign=Badge_Grade)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/850a0607-ad17-4dcc-924c-ad0bb6ae8d63/mini.png)](https://insight.sensiolabs.com/projects/850a0607-ad17-4dcc-924c-ad0bb6ae8d63)
 
-Anax DI container for dependency injection using creation and lazy loading of services.
+Anax DI service container for dependency injection of framework services using creation and lazy loading of services.
+
+The implementation of the container is compliant with [PHP-FIG 
+PSR-11: Container interface](https://www.php-fig.org/psr/psr-11/)
 
 
 
 Install
 ------------------
 
-```bash
-$ composer require anax/di
+You can install the module from [`anax/di` on Packagist](https://packagist.org/packages/anax/di) using composer.
+
+```text
+composer require anax/di
+```
+
+
+
+Development
+------------------
+
+To work as a developer you clone the repo and install the local environment through make. Then you can run the unit tests.
+
+```text
+make install
+make test
 ```
 
 
@@ -31,15 +48,14 @@ $ composer require anax/di
 Usage
 ------------------
 
-This is how you can work with the DI container.
-
-
-
-### Create and use the container
+This is a basic usage of the DI container.
 
 ```php
+// Create it
 $di = new \Anax\DI\DI();
 
+// Add a service to interface
+$di->load();
 
 ```
 
