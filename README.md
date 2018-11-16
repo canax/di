@@ -13,7 +13,6 @@ Anax DI
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/ff984b03c7e0421f5faa/maintainability)](https://codeclimate.com/github/canax/di/maintainability)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c4802edf7cf5495e9be8dfbd5c116cb1)](https://www.codacy.com/app/mosbth/di?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=canax/di&amp;utm_campaign=Badge_Grade)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/850a0607-ad17-4dcc-924c-ad0bb6ae8d63/mini.png)](https://insight.sensiolabs.com/projects/850a0607-ad17-4dcc-924c-ad0bb6ae8d63)
 
 Anax DI service container for dependency injection of framework services using creation and lazy loading of services.
 
