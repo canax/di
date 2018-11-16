@@ -3,7 +3,7 @@ Revision history
 
 
 
-v2.0.0 (2018-10-16)
+v2.0.0 (2018-11-16)
 ---------------------------------
 
 * Completed the README.md.

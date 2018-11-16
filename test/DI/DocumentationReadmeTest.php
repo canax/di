@@ -103,6 +103,7 @@ class DocumentationReadmeTest extends TestCase
 
         // Get one service
         $response = $di->get("response");
+        $this->assertTrue($response instanceof DummyService);
 
         // Check what services are loaded
         $res = implode(",", $di->getServices()); // response,view
