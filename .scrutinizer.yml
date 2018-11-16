@@ -17,7 +17,7 @@ build:
     #             command: "mkdir build"
     #     after:
     #         - "composer require --dev phpunit/phpunit"
-    tests:
+    tests-and-coverage:
         override:
             -
                 command: "make phpunit"
