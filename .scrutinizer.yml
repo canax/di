@@ -12,6 +12,7 @@ build:
                     - php-scrutinizer-run
 
         tests-and-coverage:
+            tests:
                 override:
                     -
                         command: "make phpunit"
