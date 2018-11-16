@@ -5,6 +5,11 @@ filter:
     excluded_paths: [vendor/*, test/*]
 
 build:
+  nodes:
+    analysis:
+      tests:
+        override:
+          - php-scrutinizer-run
 
     # dependencies:
     #     before:
@@ -12,11 +17,9 @@ build:
     #             command: "mkdir build"
     #     after:
     #         - "composer require --dev phpunit/phpunit"
-
     tests:
         override:
             -
-                #command: "vendor/bin/phpunit --configuration .phpunit.xml"
                 command: "make phpunit"
                 coverage:
                     file: "build/coverage.clover"
