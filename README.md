@@ -26,7 +26,15 @@ Table of content
 ------------------
 
 * [Install](#install)
-* 
+* [Development](#development)
+* [Basic usage](#basic-usage)
+* [Shared service](#shared-service)
+* [Lazy loading](#lazy-loading)
+* [Usage in Anax](#usage-in-anax)
+* [Anax initialization of services](#Anax-initialization-of-services)
+* [Anax configuration of services](#Anax-configuration-of-services)
+* [Dependency](#Dependency)
+* [License](#License)
 
 You can also read this [documentation online](https://canax.github.io/di/).
 
