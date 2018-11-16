@@ -18,9 +18,7 @@ build:
     #     after:
     #         - "composer require --dev phpunit/phpunit"
     tests-and-coverage:
-        override:
-            -
-                command: "make phpunit"
-                coverage:
-                    file: "build/coverage.clover"
-                    format: "php-clover"
+        command: "make phpunit"
+        coverage:
+            file: "build/coverage.clover"
+            format: "php-clover"

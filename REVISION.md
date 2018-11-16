@@ -3,7 +3,7 @@ Revision history
 
 
 
-v2.0.3 (2018-11-16)
+v2.0.* (2018-11-16)
 ---------------------------------
 
 * Upgrade to new scrutinizer codestyle engine
