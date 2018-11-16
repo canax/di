@@ -22,6 +22,16 @@ PSR-11: Container interface](https://www.php-fig.org/psr/psr-11/)
 
 
 
+Table of content
+------------------
+
+* [Install](#install)
+* 
+
+You can also read this [documentation online](https://canax.github.io/di/).
+
+
+
 Install
 ------------------
 
@@ -45,33 +55,235 @@ make test
 
 
 
-Usage
+Basic usage
 ------------------
 
-This is a basic usage of the DI container.
+This is the basic usage of the container.
+
+First you create the container.
 
 ```php
 // Create it
 $di = new \Anax\DI\DI();
 
-// Add a service to interface
-$di->load();
+// Check its a PSR-11 interface
+assert($di instanceof \Psr\Container\ContainerInterface);
+```
 
+Add services onto the container. 
+
+```php
+// Add a service
+$di->set("response", "\Anax\Response\Response");
+
+// Add a shared service
+$di->setShared("view", "\Anax\View\ViewContainer");
+```
+
+Check if the service is loaded.
+
+```php
+// Check if service is loaded
+if ($di->has("view")) {
+    ; // the service is loaded
+}
+```
+
+Get and use the service.
+
+```php
+// Get and use a service
+$response = $di->get("response");
+$response->addBody($body)->send();
+
+// Same, without storing in a variable
+$di->get("response")->addBody($body)->send();
 ```
 
 
 
-###Add a service using a callback
-###Add a service using an object
-###Add a service using a class name
+Shared service
+------------------
 
+A shared service always return the same object. The object is instantiated once and then stored for the next wanting to use the service. There is only one instance af a shared service. The service is shared among all its users.
+
+```php
+// Add a shared service
+$di->setShared("view", "\Anax\View\ViewContainer");
+
+// Get two instances of the shared service
+$view1 = $di->get("view");
+$view2 = $di->get("view");
+assert($view1 === $view2);
+```
+
+A service that is not shared will return a new instance each time it is get from the container.
+
+```php
+// Add a service
+$di->set("response", "\Anax\Response\Response");
+
+// Get two instances of the service
+$response1 = $di->get("response");
+$response2 = $di->get("response");
+assert($response1 !== $response2);
+```
+
+
+
+Lazy loading
+------------------
+
+The services added to the container are not activated until accessed. They are lazy loaded to ensure they are only active when used.
+
+You can see what services are loaded onto the container and you can see what services are activated.
+
+```php
+// Add services
+$di->set("response", "\Anax\Response\Response");
+$di->setShared("view", "\Anax\View\ViewContainer");
+
+// Get one service
+$response = $di->get("response");
+
+// Check what services are loaded
+implode(",", $di->getServices()); // response,view
+
+// Check what services are active
+implode(",", $di->getActiveServices()); // response
+```
+
+
+
+Usage in Anax
+-------------------
+
+In Anax all services are loaded during the bootstrap phase in the file `htdocs/index.php`. It looks like this.
+
+```php
+// Add all framework services to $di
+$di = new Anax\DI\DIFactoryConfig();
+$di->loadServices(ANAX_INSTALL_PATH . "/config/di");
+```
+
+The variable `$di` is the only global variable within the framework. The main dependency, as a global variable, is to the be accessable within the view template files and view helpers.
+
+
+
+Anax initialization of services
+-------------------
+
+All the framework services are loaded from files in the directory `ANAX_INSTALL_PATH . "/config/di"`. Each file contains one service. A file can contain several services.
+
+This is a example of a service configuration file for the service "request".
+
+```php
+/**
+ * Configuration file for request service.
+ */
+return [
+    // Services to add to the container.
+    "services" => [
+        "request" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Anax\Request\Request();
+                $obj->init();
+                return $obj;
+            }
+        ],
+    ],
+];
+```
+
+A service may contain a callback that initiates the service when it is loaded. The callback should return the initiated object.
+
+The service can be defined through its class name when the service needs no extra initialisation.
+
+```php
+"callback" => "\Anax\Request\Request",
+```
+
+One common way to initialize the service is to inject `$di` into the service. This is an example of that.
+
+```php
+"response" => [
+    "shared" => true,
+    //"callback" => "\Anax\Response\Response",
+    "callback" => function () {
+        $obj = new \Anax\Response\ResponseUtility();
+        $obj->setDI($this);
+        return $obj;
+    }
+],
+```
+
+
+
+Anax configuration of services
+-------------------
+
+During the initialization phase some services might want to read additional configuration information. They can do so by using `anax/configuration`, like this.
+
+First, lets have a look at the service "configuration".
+
+```php
+"configuration" => [
+    "shared" => true,
+    "callback" => function () {
+        $config = new \Anax\Configure\Configuration();
+        $dirs = require ANAX_INSTALL_PATH . "/config/configuration.php";
+        $config->setBaseDirectories($dirs);
+        return $config;
+    }
+],
+```
+
+It is a service to read configuration files from those directories that the framework specifies. It can be used like this, when creating other services that depends on their own configuration files.
+
+```php
+"session" => [
+    "active" => defined("ANAX_WITH_SESSION") && ANAX_WITH_SESSION, // true|false
+    "shared" => true,
+    "callback" => function () {
+        $session = new \Anax\Session\Session();
+
+        // Load the configuration files
+        $cfg = $this->get("configuration");
+        $config = $cfg->load("session");
+
+        // Set various settings in the $session
+        // ...
+
+        return $session;
+    }
+],
+```
+
+The configuration setting "active" states wether the service should be activated when its loaded, or if it should be lazy loaded.
+
+In the callback, first the service "configuration" is retrieved from $di. Then it is used to read the configuration file named "session".
+
+The actual configuration is returned from the configuration file "session" and can then be used to configure and setup the object, before returning it as a framework service.
+
+A configuration file is in general stored by its service name in `ANAX_INSTALL_PATH . "/config/servicename.php"`. It should return something, like this.
+
+```php
+/**
+ * Config-file for sessions.
+ */
+return [
+    // Session name
+    "name" => preg_replace("/[^a-z\d]/i", "", __DIR__),
+];
+```
 
 
 
 Dependency
 ------------------
 
-Using psr11.
+Using psr11 through `psr/container`.
 
 
 
