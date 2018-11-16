@@ -62,9 +62,7 @@ class DI implements ContainerInterface
      */
     protected function load($service)
     {
-        $sol = isset($this->loaded[$service]['loader'])
-            ? $this->loaded[$service]['loader']
-            : null;
+        $sol = $this->loaded[$service]['loader'] ?? null;
 
         if (is_callable($sol)) {
             // Load by calling a function
