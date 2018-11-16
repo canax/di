@@ -2,7 +2,7 @@
 
 namespace Anax\DI;
 
-use \PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * A DI variant with magic methods..

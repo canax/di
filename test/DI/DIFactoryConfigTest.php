@@ -2,7 +2,7 @@
 
 namespace Anax\DI;
 
-use \PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Testing the Dependency Injector service container.

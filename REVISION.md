@@ -3,6 +3,15 @@ Revision history
 
 
 
+v2.0.0 (2018-10-16)
+---------------------------------
+
+* Completed the README.md.
+* Added test cases for README.md.
+* Added test cases for compliance with PSR-11.
+
+
+
 v2.0.0-beta.1 (2018-08-15)
 ---------------------------------
 

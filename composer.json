@@ -1,7 +1,7 @@
 {
     "name": "anax/di",
     "type": "library",
-    "description": "Anax DI module, dependency injection (PHP FIG PSR-11).",
+    "description": "Anax DI module, dependency injection (PHP-FIG PSR-11).",
     "keywords": ["boilerplate", "framework", "mvc", "micro", "education"],
     "homepage": "https://dbwebb.se/anax",
     "license": "MIT",
