@@ -155,9 +155,9 @@ class DI implements ContainerInterface
 
 
     /**
-     * Return an arry with all loaded services names.
+     * Return an array with all loaded services names.
      *
-     * @return void
+     * @return array
      */
     public function getServices()
     {
@@ -167,9 +167,9 @@ class DI implements ContainerInterface
 
 
     /**
-     * Return an arry with all active services names.
+     * Return an array with all active services names.
      *
-     * @return void
+     * @return array
      */
     public function getActiveServices()
     {
